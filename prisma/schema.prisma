@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_PRISMA_URL_NON_POOLING")
+}
+
+model Form {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  createdAt DateTime  @default(now())
+  name      String    @unique
+  description String?
+  type String
+  isActive Boolean @default(true)
+  published Boolean @default(false)
+  author String 
+  content String @default("")
+  submissions Int @default(0)
+  visits Int @default(0)
+  
+  shareUrl String @default(uuid())
+  FormSubmissions FormSubmission[]
+}
+
+model FormSubmission {
+  id Int @id @default(autoincrement())
+  formId Int
+  createdAt DateTime @default(now())
+  content String @default("")
+  form Form @relation(fields: [formId], references: [id])
+}
