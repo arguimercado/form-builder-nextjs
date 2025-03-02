@@ -148,10 +148,10 @@
 
 @layer utilities {
   .table-header {
-    @apply border border-neutral-600 dark:border-neutral-300 text-center
+    @apply border border-neutral-600 dark:border-neutral-300
   }
 
   .table-row-cell {
-    @apply border-b border-neutral-600 dark:border-neutral-300 text-black dark:text-white
+    @apply border-b border-neutral-600 dark:border-neutral-300 text-black dark: 
   }
 }
