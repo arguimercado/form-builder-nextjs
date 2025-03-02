@@ -1,9 +1,19 @@
-import Image from "next/image";
+import { GetFormStat } from "@/actions/formbuilder";
+import StatusCards from "@/app/(root)/(home)/_components/StatusCards";
 
-export default function Home() {
+
+
+
+export default async function Home() {
+  const stats = await GetFormStat();
+
+
   return (
-    <div >
-      <h3>Dashboard</h3>
+    <div className="flex flex-col w-full container mx-auto pt-4" >
+      <StatusCards loading={false} data={stats} />
     </div>
   );
 }
+
+
+

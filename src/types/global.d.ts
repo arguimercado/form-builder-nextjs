@@ -1,12 +1,20 @@
 
-type FormType = {
+type FormModel = {
    id: number
    name: string
-   description: string
+   description?: string | null
    type: string
    isActive: boolean
-   createdAt: string
+   createdAt: Date
    author?: string
    published: boolean
-   content?: string
+   content: string
+   visits: number
+   submissions: number
+   userId: string
+}
+
+type FormTypeModel = {
+   id: string
+   name: string
 }

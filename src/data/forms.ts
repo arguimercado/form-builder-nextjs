@@ -1,4 +1,4 @@
-export const forms : FormType[] = [
+export const forms : FormModel[] = [
    {
       id: 1,
       name: 'Form 1',

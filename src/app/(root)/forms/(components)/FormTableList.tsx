@@ -32,10 +32,11 @@ import {
    TableHeader,
    TableRow,
 } from "@/components/ui/table";
-import {forms} from "@/data/forms";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
-const columns: ColumnDef<FormType>[] = [
+
+const columns: ColumnDef<FormModel>[] = [
    {
       accessorKey: "name",
       header: "Name",
@@ -89,7 +90,7 @@ const columns: ColumnDef<FormType>[] = [
                <DropdownMenuContent align="end">
                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                   <DropdownMenuItem
-                     onClick={() => navigator.clipboard.writeText(form.id)}
+                     onClick={() => console.log("Copy payment ID")}
                   >
                      Copy payment ID
                   </DropdownMenuItem>
@@ -103,7 +104,12 @@ const columns: ColumnDef<FormType>[] = [
    },
 ];
 
-export function FormTableList() {
+interface IProps {
+   data: FormModel[];
+   loading: boolean;
+}
+
+export function FormTableList({data,loading} : IProps) {
 
    const [sorting, setSorting] = React.useState<SortingState>([]);
    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -113,8 +119,8 @@ export function FormTableList() {
       React.useState<VisibilityState>({});
    const [rowSelection, setRowSelection] = React.useState({});
 
-   const table = useReactTable<FormType>({
-      data: forms,
+   const table = useReactTable<FormModel>({
+      data,
       columns,
       onSortingChange: setSorting,
       onColumnFiltersChange: setColumnFilters,
@@ -176,7 +182,14 @@ export function FormTableList() {
                ) : (
                   <TableRow>
                      <TableCell colSpan={columns.length}>
-                        No results.
+                        {loading ? (
+                           <div className="flex flex-col gap-2">
+                              <Skeleton className="w-full h-12 bg-neutral-600 dark:border-r-neutral-300" />
+                              <Skeleton className="w-full h-12 bg-neutral-600 dark:border-r-neutral-300" />
+                              <Skeleton className="w-full h-12 bg-neutral-600 dark:border-r-neutral-300" />
+                           </div>
+                        ) : (<span>No Result</span>)}
+                        
                      </TableCell>
                   </TableRow>
                )}

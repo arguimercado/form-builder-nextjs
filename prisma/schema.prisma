@@ -39,4 +39,4 @@ model FormSubmission {
   createdAt DateTime @default(now())
   content String @default("")
   form Form @relation(fields: [formId], references: [id])
-}
+} 
